@@ -1,4 +1,7 @@
+import { cors } from 'cors';
 import express, { type Express } from "express";
+import cookieParser from "cookie-parser";
+import passport from "passport";
 
 // security
 import globalRateLimit from "@middleware/rateLimit.middleware.js";
@@ -12,7 +15,14 @@ const app: Express = express();
 
 // parsers
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded( { extended: true } ));
+app.use(cors({
+    origin: "*",
+    credentials: true,
+}))
+
+app.use(passport.initialize());
 
 // security middlewares
 corsMiddleware(app);
