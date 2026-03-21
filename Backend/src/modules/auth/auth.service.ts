@@ -5,14 +5,15 @@ export class AuthService {
   constructor(private authRepo: AuthRepository) {}
 
   public register = async(data : RegisterSchemaType) => {
+
     const user = await this.authRepo.register(data);
 
-    return { user };
+    return user;
   };
 
   public login = async(data : loginSchemaType) => {
     const user = await this.authRepo.login(data);
 
-    return { user };
+    return user;
   };
 }

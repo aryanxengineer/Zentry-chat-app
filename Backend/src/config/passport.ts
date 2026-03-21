@@ -35,3 +35,7 @@ passport.use(
     },
   ),
 );
+
+export const passportAuthenticateJwt = passport.authenticate("jwt", {
+  session: false,
+});

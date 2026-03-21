@@ -7,26 +7,21 @@ export class AuthRepository {
   constructor() {}
 
   public register = async (data: RegisterSchemaType) => {
-    const { name, email, password, avatar } = data;
-
-    const existingUser = await UserModel.findOne({ email });
+    const existingUser = await UserModel.findOne({ email: data.email });
 
     if (existingUser) {
       throw new UnauthorizedException("User already exists");
     }
 
-    const hashedPassword = await hashValue(password);
-
-    const newUser = new UserModel({
-      name,
-      email,
-      password: hashedPassword,
-      avatar,
-    });
+    const newUser = new UserModel(data);
 
     await newUser.save();
 
-    return newUser;
+    return {
+      id: newUser._id,
+      name: newUser.name,
+      email: newUser.email,
+    };
   };
 
   public login = async (data: loginSchemaType) => {
@@ -35,15 +30,19 @@ export class AuthRepository {
     const existingUser = await UserModel.findOne({ email });
 
     if (!existingUser) {
-      throw new UnauthorizedException("Unauthorized access - email or password not found");
+      throw new UnauthorizedException();
     }
 
     const validPassword = await compareValue(password, existingUser.password);
 
     if (!validPassword) {
-      throw new UnauthorizedException("Unauthorized access - email or password not found");
+      throw new UnauthorizedException();
     }
 
-    return existingUser;
+    return {
+      id: existingUser._id,
+      name: existingUser.name,
+      email: existingUser.email,
+    };
   };
 }

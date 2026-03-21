@@ -19,5 +19,6 @@ export const loginSchema = z.object({
   password: passwordSchema,
 });
 
+// inherited types from schema
 export type RegisterSchemaType = z.infer<typeof registerSchema>;
 export type loginSchemaType = z.infer<typeof loginSchema>;

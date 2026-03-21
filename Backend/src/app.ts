@@ -1,14 +1,16 @@
-import { cors } from 'cors';
+import cors from "cors";
 import express, { type Express } from "express";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 
+import '@config/passport.js';
+
 // security
 import globalRateLimit from "@middleware/rateLimit.middleware.js";
-import corsMiddleware from '@middleware/cors.middleware.js';
+import corsMiddleware from "@middleware/cors.middleware.js";
 
 // routes
-// import indexRouter from '@routes/index.routes.js';
+import indexRouter from "@routes/index.routes.js";
 
 // app server
 const app: Express = express();
@@ -16,11 +18,7 @@ const app: Express = express();
 // parsers
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded( { extended: true } ));
-app.use(cors({
-    origin: "*",
-    credentials: true,
-}))
+app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 
@@ -29,6 +27,6 @@ corsMiddleware(app);
 globalRateLimit(app);
 
 // routes group
-// app.use('/api/v1', indexRouter);
+app.use("/api/v1", indexRouter);
 
 export default app;
