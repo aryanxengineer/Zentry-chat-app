@@ -35,7 +35,7 @@ export class AuthController {
     });
   });
 
-  public logout = asyncHandler(async (req: Response, res: Response) => {
+  public logout = asyncHandler(async (req: Request, res: Response) => {
     clearJwtAuthCookie(res);
 
     return res.status(HTTP_STATUS_CODES.OK).json({

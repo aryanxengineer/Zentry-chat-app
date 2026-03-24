@@ -5,5 +5,5 @@ export interface IMessage extends Document {
     sender: mongoose.Types.ObjectId;
     content?: string;
     image?: string;
-    replyTo?: mongoose.Types.ObjectId;
+    replyTo?: mongoose.Types.ObjectId | null;
 }

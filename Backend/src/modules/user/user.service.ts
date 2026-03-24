@@ -1,7 +1,11 @@
-import type { Request, Response } from "express";
+import type { UserRepository } from "./user.repository.js";
 
 export class UserService {
-  constructor() {}
+  constructor(private userRepository: UserRepository) {}
 
-  getUserById = () => {};
+  public getUsers = async (userId: string) => {
+    const users = await this.userRepository.getUsers(userId);
+
+    return users;
+  };
 }

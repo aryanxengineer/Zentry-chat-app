@@ -3,7 +3,7 @@ import express, { type Express } from "express";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 
-import '@config/passport.js';
+import "@config/passport.js";
 
 // security
 import globalRateLimit from "@middleware/rateLimit.middleware.js";
