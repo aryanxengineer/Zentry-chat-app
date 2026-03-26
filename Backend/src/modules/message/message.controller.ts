@@ -13,12 +13,12 @@ export class MessageController {
 
     const body = sendMessageSchema.parse(req.body);
 
-    const sentMessage = await this.messageService.sendMessage(userId, body);
+    const result = await this.messageService.sendMessage(userId, body);
 
     return res.status(HTTP_STATUS_CODES.OK).json({
       success: true,
       message: "Message sent successfully",
-      ...this.sendMessage,
+      data: result,
     });
   });
 }

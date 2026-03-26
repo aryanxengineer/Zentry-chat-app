@@ -1,7 +1,13 @@
 import { BadRequestException, NotFoundException } from "@/utils/appError.js";
+import {
+  v2 as cloudinary,
+  type UploadApiResponse,
+} from "cloudinary";
+
 import { ChatModel } from "../chat/chat.model.js";
-import type { SendMessageType } from "./message.schema.js";
 import { MessageModel } from "./message.model.js";
+
+import type { SendMessageType } from "./message.schema.js";
 
 export class MessageRepository {
   constructor() {}
@@ -34,6 +40,14 @@ export class MessageRepository {
 
       if (image) {
         // upload to cloudinary
+        try {
+          const uploadRes: UploadApiResponse =
+            await cloudinary.uploader.upload(image);
+
+          imageUrl = uploadRes.secure_url;
+        } catch (error: any) {
+          console.log(error.message);
+        }
       }
 
       const newMessage = await MessageModel.create({

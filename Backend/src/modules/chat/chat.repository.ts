@@ -53,7 +53,6 @@ export class ChatRepository {
     }
     // Implement webSocket
 
-    console.log("printing my chat data", chat);
 
     return chat;
   };
@@ -78,7 +77,7 @@ export class ChatRepository {
   };
 
   public getSingleChat = async (chatId: string, userId: string) => {
-    const chat = ChatModel.findOne({
+    const chat = await ChatModel.findOne({
       _id: chatId,
       participants: {
         $in: [userId],

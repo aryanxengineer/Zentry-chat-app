@@ -53,8 +53,10 @@ export class ChatController {
     return res.status(HTTP_STATUS_CODES.OK).json({
       success: true,
       message: "User chats created successfully",
-      chat,
-      messages,
+      data: {
+        chat,
+        messages
+      }
     });
   });
 }

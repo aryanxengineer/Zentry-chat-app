@@ -49,13 +49,14 @@
       "@config/*": ["src/config/*"],
       "@middleware/*": ["src/middleware/*"],
       "@utils/*": ["src/utils/*"],
+      "@lib/*": ["src/lib/*"],
       "@routes/*": ["src/routes/*"],
 
       // Modules folders
       "@auth/*": ["src/modules/auth/*"],
-      "@users/*": ["src/modules/user/*"],
+      "@users/*": ["src/modules/user/*"]
     },
 
-    "ignoreDeprecations": "6.0"
+    // "ignoreDeprecations": "6.0",
   }
 }

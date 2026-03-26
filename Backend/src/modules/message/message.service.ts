@@ -5,8 +5,8 @@ export class MessageService {
   constructor(private messageRepository: MessageRepository) {}
 
   sendMessage = async (userId: string, data: SendMessageType) => {
-    const sentMessage = await this.messageRepository.sendMessage(userId, data);
+    const sendMessage = await this.messageRepository.sendMessage(userId, data);
 
-    return sentMessage;
+    return sendMessage;
   };
 }
