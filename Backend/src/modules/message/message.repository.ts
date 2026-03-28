@@ -1,13 +1,12 @@
 import { BadRequestException, NotFoundException } from "@/utils/appError.js";
-import {
-  v2 as cloudinary,
-  type UploadApiResponse,
-} from "cloudinary";
+import { v2 as cloudinary, type UploadApiResponse } from "cloudinary";
 
 import { ChatModel } from "../chat/chat.model.js";
 import { MessageModel } from "./message.model.js";
 
 import type { SendMessageType } from "./message.schema.js";
+import type mongoose from "mongoose";
+import { emitLastMessageToParticipants, emitNewMessageToChatRoom } from "@/lib/socket.js";
 
 export class MessageRepository {
   constructor() {}
@@ -70,7 +69,16 @@ export class MessageRepository {
         },
       ]);
 
-      // websocket
+      
+      chat.lastMessage = newMessage._id as mongoose.Types.ObjectId;
+      await chat.save();
+
+      //websocket emit the new Message to the chat room
+      emitNewMessageToChatRoom(userId, chatId, newMessage);
+
+      //websocket emit the lastmessage to members (personnal room user)
+      const allParticipantIds = chat.participants.map((id) => id.toString());
+      emitLastMessageToParticipants(allParticipantIds, chatId, newMessage);
 
       return { message: newMessage, chat };
     }

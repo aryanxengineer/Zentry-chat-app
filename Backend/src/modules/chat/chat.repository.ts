@@ -3,6 +3,7 @@ import { UserModel } from "../user/user.model.js";
 import { ChatModel } from "./chat.model.js";
 import type { CreateChatSchemaType } from "./chat.schema.js";
 import { MessageModel } from "../message/message.model.js";
+import { emitNewChatToParticpants } from "@/lib/socket.js";
 
 export class ChatRepository {
   constructor() {}
@@ -51,8 +52,17 @@ export class ChatRepository {
         createdBy: userId,
       });
     }
-    // Implement webSocket
 
+    // Implement websocket
+    const populatedChat = await chat?.populate(
+      "participants",
+      "name avatar isAI",
+    );
+    const particpantIdStrings = populatedChat?.participants?.map((p) => {
+      return p._id?.toString();
+    });
+
+    emitNewChatToParticpants(particpantIdStrings, populatedChat);
 
     return chat;
   };
