@@ -15,10 +15,12 @@ export const PROTECTED_ROUTES = {
 
 export const authRoutesPaths = [
   {
+    title: "Sign-in",
     path: AUTH_ROUTES.SIGN_IN,
     element: <Signin />,
   },
   {
+    title: "Sign-up",
     path: AUTH_ROUTES.SIGN_UP,
     element: <Signup />,
   },
@@ -26,10 +28,12 @@ export const authRoutesPaths = [
 
 export const protectedRoutesPaths = [
   {
+    title: "Chat",
     path: PROTECTED_ROUTES.CHAT,
     element: <Chat />,
   },
   {
+    title: "Single-chat",
     path: PROTECTED_ROUTES.SINGLE_CHAT,
     element: <SingleChat />,
   },
