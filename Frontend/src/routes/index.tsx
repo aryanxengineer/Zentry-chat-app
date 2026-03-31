@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import BaseLayout from "@/layouts/BaseLayout";
 import AppLayout from "@/layouts/AppLayout";
-import RouteGuard from "./routeGuard";
+import RouteGuard from "./RouteGuard.tsx";
 
 const AppRoutes = () => {
   return (

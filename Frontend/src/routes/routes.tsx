@@ -4,8 +4,8 @@ import Chat from "@/pages/chat";
 import SingleChat from "@/pages/chat/chatId";
 
 export const AUTH_ROUTES = {
-  SIGN_IN: "/",
-  SIGN_UP: "/sing-up",
+  SIGN_IN: "/sign-in",
+  SIGN_UP: "/sign-up",
 };
 
 export const PROTECTED_ROUTES = {

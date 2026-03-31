@@ -1,13 +1,14 @@
-import { API } from "@/lib/axiosClient";
 import type { LoginType, RegisterType, UserType } from "@/types/auth";
+
+import { API } from "@/lib/axiosClient";
 import { toast } from "sonner";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useSocket } from "./useSocket";
 
 interface AuthState {
-  user: UserType;
-  isLogginIn: boolean;
+  user: UserType | null;
+  isLoggingIn: boolean;
   isSigningUp: boolean;
   isAuthStatusLoading: boolean;
 
